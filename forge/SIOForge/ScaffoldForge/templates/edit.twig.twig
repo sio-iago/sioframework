@@ -1,0 +1,18 @@
+{{ leftEscapePercent  }} extends 'default/layout.twig' {{ rightEscapePercent  }}
+
+
+{{ leftEscapePercent  }} block content {{ rightEscapePercent  }}
+
+    <div>
+        <form method="post">
+            <input type="hidden" name="id" value="{{ leftEscapeBracket }}obj.getId(){{ rightEscapeBracket }}" />
+{% for key,val in model.getParameters() %}
+            <label for="{{ key }}">{{ key }}</label>
+            <input type="text" id="{{ key }}" name="{{ key }}" value="{{ leftEscapeBracket }}obj.get{{ key }}(){{ rightEscapeBracket }}" />
+{% endfor %}
+
+            <input type="submit" value="Save" />
+        </form>
+    </div>
+
+{{ leftEscapePercent  }} endblock {{ rightEscapePercent  }}

@@ -1,0 +1,90 @@
+<?php
+
+namespace {{ package }}\Controller;
+
+use SIOFramework\Common\Controller\DefaultController;
+use SIOFramework\Common\Factory\StandardFactory;
+use {{ model.getPackage() }}\{{ model.getName() }};
+
+
+class {{ model.getName() }}Controller extends DefaultController
+{
+    public function list{{ model.getName() }}()
+    {
+        $dbFactory = new StandardFactory($this->app);
+        $list = $dbFactory->selectAll('{{ model.getPackage() }}\{{ model.getName() }}');
+        $this->data['list'] = $list;
+
+        $this->render('{{ viewDir }}/list.twig',$this->data);
+    }
+
+    public function create{{ model.getName() }}()
+    {
+        $obj = new {{ model.getName() }}();
+
+        if($this->app->request->isPost())
+        {
+            $dbFactory = new StandardFactory($this->app);
+
+            $obj->hydrate($this->data);
+
+            $dbFactory->persist($obj);
+            $this->app->redirect($this->app->urlFor('{{ list_name }}'));
+
+            return;
+        }
+
+        $this->data['obj'] = $obj;
+
+        $this->render('{{ viewDir }}/edit.twig',$this->data);
+    }
+
+    public function edit{{ model.getName() }}($id)
+    {
+        $dbFactory = new StandardFactory($this->app);
+        $obj = $dbFactory->get('{{ model.getPackage() }}\{{ model.getName() }}',$id);
+
+        if(!($obj instanceof {{ model.getName() }}))
+        {
+                $this->app->redirect($this->app->urlFor('{{ list_name }}'));
+                return;
+        }
+
+        if($this->app->request->isPost())
+        {
+            $obj->hydrate($this->data);
+            $dbFactory->persist($obj);
+            $this->app->redirect($this->app->urlFor('{{ list_name }}'));
+
+            return;
+        }
+
+        $this->data['obj'] = $obj;
+
+        $this->render('{{ viewDir }}/edit.twig',$this->data);
+    }
+
+    public function delete{{ model.getName() }}($id)
+    {
+        $dbFactory = new StandardFactory($this->app);
+        $obj = $dbFactory->get('{{ model.getPackage() }}\{{ model.getName() }}',$id);
+
+        if(!($obj instanceof {{ model.getName() }}))
+        {
+            $this->app->redirect($this->app->urlFor('{{ list_name }}').'?error=true');
+            return;
+        }
+
+        try {
+            $dbFactory->remove($obj);
+        }
+        catch(\Exception $ex)
+        {
+            $this->app->redirect($this->app->urlFor('{{ list_name }}').'?error=true');
+            return;
+        }
+
+        $this->app->redirect($this->app->urlFor('{{ list_name }}').'?success=true');
+    }
+
+}

@@ -1,0 +1,9 @@
+<?php
+
+// Default route for this module.
+// Feel free to change it.
+$app->get('/{{ moduleName }}',function() use ($app){
+
+(new {{ module }}\Controller\{{ moduleName }}Controller($app))->index();
+
+})->via('GET','POST')->name('{{ moduleName }}');

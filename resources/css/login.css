@@ -1,0 +1,42 @@
+/* 
+    Created on : Sep 11, 2015, 1:46:32 PM
+    Author     : silva i.o.
+*/
+
+/*
+ * Globals
+ */
+html, body {
+    border: 0px;
+    margin: auto;
+    padding: 0px;
+    background-color: #f0f0f0;
+    color: #555;
+    font-family: 'Oxygen', sans-serif;
+    text-align: center;
+}
+
+.login-box {
+    margin-top: 5%;
+    margin-left: auto ;
+    margin-right: auto ;
+    padding: 40px;
+    border: 1px solid #555;
+    border-radius: 10px;
+    text-align: center;
+    width: 400px;
+    background-color: #fff;
+}
+
+.login-box h2 {
+    padding-bottom: 10px;
+    border-bottom: 1px solid #555;
+}
+
+.login-container {
+    padding-top: 12px;
+}
+
+.login-container p {
+    padding-bottom: 8px;
+}

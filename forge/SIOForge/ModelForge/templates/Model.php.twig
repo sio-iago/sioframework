@@ -1,0 +1,49 @@
+<?php
+
+namespace {{ model.getPackage() }};
+
+use Doctrine\ORM\Mapping as ORM;
+use SIOFramework\Common\Model\Model;
+
+/**
+ * Class {{ model.getName() }}
+ * @package {{ model.getPackage() }}
+ *
+ * @ORM\Entity
+ * @ORM\Table(name="{{ model.getTableName() }}")
+ */
+class {{ model.getName() }} extends Model{
+
+    /**
+     * @ORM\Id
+     * @ORM\Column(type="integer")
+     * @ORM\GeneratedValue
+     */
+    private $id;
+
+{% for key,val in model.getParameters() %}
+    /**
+     * @ORM\Column(type="{{ val }}")
+     */
+    private ${{ key }};
+
+{% endfor %}
+
+    // Getters and Setters
+    public function getId()
+    {
+        return $this->id;
+    }
+
+{% for key,val in model.getParameters() %}
+    public function get{{ key|capitalize }}()
+    {
+        return $this->{{ key }};
+    }
+    public function set{{ key|capitalize }}(${{ key }})
+    {
+        $this->{{ key }} = ${{ key }};
+    }
+
+{% endfor %}
+}

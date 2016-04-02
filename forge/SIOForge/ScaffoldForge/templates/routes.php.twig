@@ -1,0 +1,28 @@
+<?php
+
+// Default route from scaffolding
+// Feel free to change it.
+
+$app->get('/{{ module }}/{{ model.getName() }}/list',function() use ($app){
+
+(new {{ package }}\Controller\{{ model.getName() }}Controller($app))->list{{ model.getName() }}();
+
+})->via('GET','POST')->name('{{ list_name }}');
+
+$app->get('/{{ module }}/{{ model.getName() }}/create',function() use ($app){
+
+(new {{ package }}\Controller\{{ model.getName() }}Controller($app))->create{{ model.getName() }}();
+
+})->via('GET','POST')->name('{{ create_name }}');
+
+$app->get('/{{ module }}/{{ model.getName() }}/edit/:id',function($id) use ($app){
+
+(new {{ package }}\Controller\{{ model.getName() }}Controller($app))->edit{{ model.getName() }}($id);
+
+})->via('GET','POST')->name('{{ edit_name }}');
+
+$app->get('/{{ module }}/{{ model.getName() }}/delete/:id',function($id) use ($app){
+
+(new {{ package }}\Controller\{{ model.getName() }}Controller($app))->delete{{ model.getName() }}($id);
+
+})->via('GET','POST')->name('{{ delete_name }}');

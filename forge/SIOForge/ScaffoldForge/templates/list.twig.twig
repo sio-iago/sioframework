@@ -1,0 +1,36 @@
+{{ leftEscapePercent  }} extends 'default/layout.twig' {{ rightEscapePercent  }}
+
+
+{{ leftEscapePercent  }} block content {{ rightEscapePercent  }}
+
+    <div class="create-div">
+        <a class="btn btn-md btn-info" href="{{ createUrl|raw }}">Add {{ model.getName() }}</a>
+    </div>
+
+    <div class="table-div">
+        <table class="table">
+            <thead>
+                <tr>
+{% for key,val in model.getParameters() %}
+                    <th>{{ key|capitalize }}</th>
+{% endfor %}
+                    <th>Options</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{ leftEscapePercent  }} for obj in list {{ rightEscapePercent  }}
+                    <tr>
+{% for key,val in model.getParameters() %}
+                        <td>{{ leftEscapeBracket  }} obj.get{{ key|capitalize }}() {{ rightEscapeBracket  }}</td>
+{% endfor %}
+                        <td>
+                            <a class="btn btn-info" href="{{ editUrl|raw }}">Editar</a>
+                            <a class="btn btn-danger" href="{{ deleteUrl|raw }}">Excluir</a>
+                        </td>
+                    </tr>
+                {{ leftEscapePercent  }} endfor {{ rightEscapePercent  }}
+            </tbody>
+        </table>
+    </div>
+
+{{ leftEscapePercent  }} endblock {{ rightEscapePercent  }}
