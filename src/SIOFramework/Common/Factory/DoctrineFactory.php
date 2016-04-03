@@ -6,7 +6,7 @@ namespace SIOFramework\Common\Factory;
 use Doctrine\ORM\EntityManager;
 use Slim\Slim;
 
-abstract class DoctrineFactory
+abstract class DoctrineFactory implements DatabaseFactoryInterface
 {
 
     /**

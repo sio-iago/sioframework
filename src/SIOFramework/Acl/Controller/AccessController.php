@@ -6,6 +6,7 @@ namespace SIOFramework\Acl\Controller;
 
 use Aura\Session\Session;
 use SIOFramework\Common\Controller\DefaultController;
+use SIOFramework\Common\Factory\DatabaseFactoryInterface;
 use SIOFramework\Common\Factory\StandardFactory;
 use SIOFramework\Acl\Model\SystemUser;
 use Slim\Slim;
@@ -18,13 +19,19 @@ class AccessController extends DefaultController
     protected $session;
 
     /**
+     * @var DatabaseFactoryInterface
+     */
+    protected $dbFactory;
+
+    /**
      * AccessController constructor.
      */
-    public function __construct(Slim $app)
+    public function __construct(Slim $app, DatabaseFactoryInterface $dbFactory)
     {
         parent::__construct($app);
 
         $this->session = $app->container->get('session');
+        $this->dbFactory = $dbFactory;
     }
 
 
@@ -35,19 +42,17 @@ class AccessController extends DefaultController
     {
         if($this->app->request->isPost())
         {
-            $dbFactory = new StandardFactory($this->app);
-
             $criteria = array(
                 'username' => $this->app->request->params('username'),
                 'password' => sha1($this->app->request->params('password')),
             );
 
-            $user = $dbFactory->selectOne('SIOFramework\Acl\Model\SystemUser', $criteria);
+            $user = $this->dbFactory->selectOne('SIOFramework\Acl\Model\SystemUser', $criteria);
 
             if(is_object($user) && get_class($user)==get_class(new SystemUser())){
 
                 $user->currentTimestamp();
-                $dbFactory->persist($user);
+                $this->dbFactory->persist($user);
 
                 return $user;
             }
@@ -81,8 +86,6 @@ class AccessController extends DefaultController
         }
         else
         {
-
-
             if($this->app->request->isPost())
                 $this->data['error'] = 'Erro ao realizar login.';
 
