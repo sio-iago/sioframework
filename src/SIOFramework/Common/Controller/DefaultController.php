@@ -27,6 +27,11 @@ abstract class DefaultController implements ControllerInterface
      */
     protected $language;
 
+    /**
+     * @var array of WidgetInterface
+     */
+    protected $widgets;
+
 
     /**
      * DefaultController constructor.
@@ -37,6 +42,7 @@ abstract class DefaultController implements ControllerInterface
         $this->app = $app;
         $this->data = array_merge(array(),$app->request->params());
 
+        $this->widgets = array();
         $this->twig = $this->app->container->get('twig');
     }
 
@@ -55,6 +61,37 @@ abstract class DefaultController implements ControllerInterface
         $args = ($args == NULL ? $this->data : $args);
 
         $resp = $this->twig->loadTemplate($view);
+
+        $this->processWidgets();
         echo $resp->render($args);
+    }
+
+    /**
+     * Adds a widget to controller.
+     *
+     * @param WidgetInterface $widget
+     */
+    public function addWidget(WidgetInterface $widget)
+    {
+        $this->widgets[] = $widget;
+    }
+
+    /**
+     * Gets a list of widgets.
+     *
+     * @return array
+     */
+    public function getWidgets()
+    {
+        return $this->widgets;
+    }
+
+    /**
+     * Process the widgets.
+     * Creates $this->data['Widgets'].
+     */
+    protected function processWidgets()
+    {
+        $this->data['Widgets'] = $this->getWidgets();
     }
 }
