@@ -9,7 +9,7 @@
         "slim/slim": "2.6",
         "aura/session": "2.0"
     },
-    "license": "All Rights Reserved",
+    "license": "MIT",
     "authors": [
         {
             "name": "sio-iago",
