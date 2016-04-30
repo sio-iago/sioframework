@@ -18,8 +18,7 @@
     ],
     "autoload": {
          "psr-4": {
-             "SIOFramework\\" : "src/SIOFramework",
-             "SampleApp\\" : "src/SampleApp"
+             "SIOFramework\\" : "src/SIOFramework"
          }
     },
     "autoload-dev" : {
