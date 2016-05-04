@@ -55,8 +55,8 @@ class SystemUser extends Model {
     /**
      * @ORM\ManyToMany(targetEntity="SIOFramework\Acl\Model\SystemRole",cascade={"all"})
      * @ORM\JoinTable(name="sio_user_roles",
-     *      joinColumns={@ORM\JoinColumn(name="user_id", referencedColumnName="id")},
-     *      inverseJoinColumns={@ORM\JoinColumn(name="role_id", referencedColumnName="id")}
+     *      joinColumns={@ORM\JoinColumn(name="user_id", referencedColumnName="id", onDelete="cascade")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="role_id", referencedColumnName="id", onDelete="cascade")}
      *      )
      * @var ArrayCollection
      */

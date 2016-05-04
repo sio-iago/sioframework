@@ -58,11 +58,11 @@ abstract class DefaultController implements ControllerInterface
      */
     public function render($view, $args=NULL)
     {
+        $this->processWidgets();
         $args = ($args == NULL ? $this->data : $args);
 
         $resp = $this->twig->loadTemplate($view);
 
-        $this->processWidgets();
         echo $resp->render($args);
     }
 
@@ -81,9 +81,20 @@ abstract class DefaultController implements ControllerInterface
      *
      * @return array
      */
-    public function getWidgets()
+    protected function getWidgets()
     {
-        return $this->widgets;
+        $widgets = array();
+        foreach($this->widgets as $w)
+        {
+            /**
+             * @var $w WidgetInterface
+             */
+            $name = $w->getPartial();
+
+            $widgets[$name] = $w;
+        }
+
+        return $widgets;
     }
 
     /**
@@ -92,6 +103,11 @@ abstract class DefaultController implements ControllerInterface
      */
     protected function processWidgets()
     {
-        $this->data['Widgets'] = $this->getWidgets();
+        $this->data['Widgets'] = array();
+
+        foreach($this->getWidgets() as $key=>$val)
+        {
+            $this->data['Widgets'][$key] = $val->renderWidget();
+        }
     }
 }

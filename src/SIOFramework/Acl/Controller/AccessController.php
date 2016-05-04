@@ -45,6 +45,7 @@ class AccessController extends DefaultController
             $criteria = array(
                 'username' => $this->app->request->params('username'),
                 'password' => sha1($this->app->request->params('password')),
+                'status' => 'A',
             );
 
             $user = $this->dbFactory->selectOne('SIOFramework\Acl\Model\SystemUser', $criteria);

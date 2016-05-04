@@ -23,11 +23,24 @@ abstract class WidgetController implements WidgetInterface
      */
     protected $partial;
 
+    /**
+     * @var \Twig_Environment $twig
+     */
+    protected $twig;
+
+    /**
+     * WidgetController constructor.
+     * @param Slim $app
+     * @param $partial
+     * @param array $data
+     */
     public function __construct(Slim $app, $partial, array $data)
     {
         $this->app = $app;
         $this->data = $data;
         $this->partial = $partial;
+
+        $this->twig = $this->app->container->get('twig');
     }
 
     /**
