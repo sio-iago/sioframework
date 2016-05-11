@@ -3,8 +3,11 @@
 $base = __DIR__ . '/../';
 
 return array(
+
+    // Framework Modules
     'Common' => $base . 'src/SIOFramework/Common',
     'Acl' => $base . 'src/SIOFramework/Acl',
-    'SampleAppWebsite' => $base . 'src/SampleApp/Website',
-    'SampleAppLogin' => $base . 'src/SampleApp/Login',
+
+    // Application Modules
+    //'SampleApp' => $base . 'src/SampleApp',
 );

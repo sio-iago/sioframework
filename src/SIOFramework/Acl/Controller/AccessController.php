@@ -90,7 +90,7 @@ class AccessController extends DefaultController
             if($this->app->request->isPost())
                 $this->data['error'] = 'Erro ao realizar login.';
 
-            $this->render('acl/login.twig', $this->data);
+            $this->render('@Acl/login.twig', $this->data);
         }
     }
 

@@ -2,7 +2,7 @@
 
 // Not Found Template
 $app->notFound(function() use ($app){
-    $twig = $app->container->get('twig')->loadTemplate('default/notfound.twig');
+    $twig = $app->twig->loadTemplate('@Common/notfound.twig');
 
     echo $twig->render(array());
 });
