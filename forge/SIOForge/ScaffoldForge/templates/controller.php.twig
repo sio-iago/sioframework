@@ -15,7 +15,7 @@ class {{ model.getName() }}Controller extends DefaultController
         $list = $dbFactory->selectAll('{{ model.getPackage() }}\{{ model.getName() }}');
         $this->data['list'] = $list;
 
-        $this->render('{{ viewDir }}/list.twig',$this->data);
+        $this->render('@{{ model.getModule() }}/{{ model.getName() }}/list.twig',$this->data);
     }
 
     public function create{{ model.getName() }}()
@@ -36,7 +36,7 @@ class {{ model.getName() }}Controller extends DefaultController
 
         $this->data['obj'] = $obj;
 
-        $this->render('{{ viewDir }}/edit.twig',$this->data);
+        $this->render('@{{ model.getModule() }}/{{ model.getName() }}/edit.twig',$this->data);
     }
 
     public function edit{{ model.getName() }}($id)
@@ -61,7 +61,7 @@ class {{ model.getName() }}Controller extends DefaultController
 
         $this->data['obj'] = $obj;
 
-        $this->render('{{ viewDir }}/edit.twig',$this->data);
+        $this->render('@{{ model.getModule() }}/{{ model.getName() }}/edit.twig',$this->data);
     }
 
     public function delete{{ model.getName() }}($id)

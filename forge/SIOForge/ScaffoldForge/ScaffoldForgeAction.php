@@ -26,15 +26,6 @@ class ScaffoldForgeAction extends TwigRenderAction implements Action
         return $moduleNamespace;
     }
 
-    /**
-     * @param MetaEntity $metaEntity
-     * @return string
-     */
-    protected function getViewsDirFor(MetaEntity $metaEntity)
-    {
-        return strtolower($metaEntity->getModule().'/'.$metaEntity->getName());
-    }
-
     protected function getOperationName(MetaEntity $metaEntity, $name)
     {
         return $metaEntity->getModule() . '-'. $metaEntity->getName() . '-' . $name;
@@ -78,18 +69,8 @@ class ScaffoldForgeAction extends TwigRenderAction implements Action
         }
 
         // Views Configuration
-        $viewsDir = $environment->getBaseDir() . '/views';
-
-        if(!is_dir($viewsDir))
-        {
-            print "Error: Views directory does not exist.\n";
-            print "Please create the directory '$viewsDir'\n\n";
-            return;
-        }
-
-
-        $moduleViewsDir = $viewsDir . '/' . strtolower($metaEntity->getModule());
-        $migrationViewsDir = $viewsDir . '/' . $this->getViewsDirFor($metaEntity);
+        $moduleViewsDir = $modulePath . '/views';
+        $migrationViewsDir = $moduleViewsDir . '/' . $metaEntity->getName();
 
         if(!is_dir($moduleViewsDir))
         {
@@ -113,7 +94,6 @@ class ScaffoldForgeAction extends TwigRenderAction implements Action
         $data = array(
             'model' => $metaEntity,
             'module' => $metaEntity->getModule(),
-            'viewDir' => $this->getViewsDirFor($metaEntity),
             'package' => $this->getBaseModule($metaEntity->getPackage()),
         );
 
