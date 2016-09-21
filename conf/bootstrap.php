@@ -5,9 +5,8 @@ $app->config('debug',TRUE);
 
 $app->container->singleton('modules', function() {
 // Modules Manager (Loads the modules of our application and MUST BE THE FIRST)
-    return require_once __dir__ . '/modules.php';
+    return require_once __DIR__ . '/modules.php';
 });
-
 // Session Manager (Session Manager, optional)
 require_once __DIR__ . '/session.php';
 
@@ -23,3 +22,7 @@ require_once __DIR__ . '/filemanager.php';
 
 // Database Manager (Database Manager, optional)
 require_once __DIR__ . '/database.php';
+
+
+// Dependency Manager (DI Manager)
+require_once __DIR__ . '/di.php';
